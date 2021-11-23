@@ -1,0 +1,26 @@
+{
+  "name": "mern-app",
+  "version": "1.0.0",
+  "description": "Travel Agency",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d"
+  },
+  "authors": "Álvaro Capdevila, Andrés Martíenz, and Ángel Martíenz",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "colors": "^1.4.0",
+    "concurrently": "^6.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+  }
+}
