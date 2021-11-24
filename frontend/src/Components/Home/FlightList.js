@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default function FlightList({flightList,carriers}) {
-   
+   const bookFlight = (airline,price,currency,time,date,destination,origin) => {
+     return
+   }
     return (
         <div className="lg:flex lg:justify-center">
         <div className="flex flex-col lg:max-w-7xl mt-10">
@@ -33,7 +35,7 @@ export default function FlightList({flightList,carriers}) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Seats available
+                    Seats
                   </th>
                   <th
                     scope="col"
@@ -57,7 +59,7 @@ export default function FlightList({flightList,carriers}) {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{flight.numberOfBookableSeats}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{carriers[flight.itineraries[0].segments[0].carrierCode]}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="/" className="text-primaryDark hover:text-primaryLight">
+                      <a href="#" className="text-primaryDark hover:text-primaryLight">
                         BOOK
                       </a>
                     </td>

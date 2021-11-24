@@ -1,9 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-//!import { Fragment } from 'react'
-//!import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Disclosure } from '@headlessui/react'
-//!import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Fragment } from 'react'
+import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import planeLogo from '../../static/planeLogo.svg'
 import { useLocation } from 'react-router'
 
@@ -13,16 +11,18 @@ function classNames(...classes) {
 }
 
 export default function Example() {
-  const {pathname} = useLocation();
-  
-  let navigation = [
-    { name: 'Search Flights', href: '/home', current: true },
-    { name: 'Booked Flights', href: '/booked', current: false },
-    { name: 'Account', href: '/account', current: false }
-  ]
-  for(let i=0;i<navigation.length;i++){
-    navigation[i].current = navigation[i].href === pathname ? true: false;
-  }
+    const {pathname} = useLocation();
+    
+    let navigation = [
+        { name: 'Search Flights', href: '/home', current: true },
+        { name: 'Booked Flights', href: '/booked', current: false },
+        { name: 'Account', href: '/account', current: false },
+    ]
+    for(let i=0;i<navigation.length;i++){
+        navigation[i].current = navigation[i].href === pathname?  true: false
+    }
+
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -49,7 +49,7 @@ export default function Example() {
                   />
                   <div className="ml-10 font-extrabold text-3xl text-white flex">
                   TravelExpert <span className="text-primary">.</span>
-                  </div>
+               </div>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
@@ -69,6 +69,7 @@ export default function Example() {
                   </div>
                 </div>
               </div>
+            
             </div>
           </div>
 

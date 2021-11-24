@@ -23,6 +23,7 @@ export default function FlightSearch() {
     const [origin,setOrigin] = useState(null);
     const [destination,setDestination] = useState(null);
     const [date,setDate] = useState(null);
+    const [error,setError] = useState(null);
 
     const query = () => {
         setsearch({
@@ -43,9 +44,10 @@ export default function FlightSearch() {
                 max:10
             }
         ).then(response => {
+            setError(null);
             setLoading(false);
-            if (response.errors) {
-                console.log(response.errors.detail)
+            if (response.result.errors) {
+                console.log('HOLA')
             } else {
                 const flights = response.data
                 const carriers = response.result.dictionaries.carriers;
@@ -54,8 +56,13 @@ export default function FlightSearch() {
             }
 
         }).catch(function (error) {
-            console.log(error.errors);
-
+            setLoading(false);
+            console.log(error)
+            if(error.description != undefined) {
+                setError(error.description[0].detail)
+            }else{
+                setError('Error, check the code you entered again.')
+            }
         });
     }, [search])
 
@@ -68,11 +75,11 @@ export default function FlightSearch() {
     return (
         <div className="bg-gray-900 h-screen">
             <NavBar/>
-            <div className="flex justify-center">
-                <div className="flex justify-around items-center space-x-10 mt-10">
-                    <div className="flex rounded-lg shadow-sm bg-white">
+            <div className="md:flex justify-center">
+                <div className="md:flex space-y-4 justify-around items-center space-x-10 mt-10">
+                    <div className="flex rounded-lg shadow-sm bg-white mx-3 md:mx-0">
                         
-                        <div className=" px-3 py-2 focus-within:z-10 border-r border-gray-300 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
+                        <div className="px-3 py-2 focus-within:z-10 border-r border-gray-300 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
                             <label htmlFor="name" className="block text-xs font-medium text-gray-700">
                                 ORIGIN
                             </label>
@@ -86,7 +93,7 @@ export default function FlightSearch() {
                                 placeholder="SYD"
                             />
                         </div>
-                        <div className=" px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
+                        <div className="px-3 py-2 focus-within:z-10 focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">
                             <label htmlFor="job-title" className="block w-full text-xs font-medium text-gray-700">
                                 DESTINATION
                             </label>
@@ -101,19 +108,23 @@ export default function FlightSearch() {
                             />
                         </div>
                     </div>
-                    <div className="h-10 ">
+                    <div className="h-10 flex justify-center ">
                         <input className="focus:ring-primary rounded-lg" type="date" value={date} onChange={handleDate} />
                     </div>
-                    <div onClick={query}>
+                    <div className="flex justify-center items-center cursor-pointer" onClick={query}>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
+                    <span className="text-white ml-1 font-bold">
+                        Search
+                    </span>
                     </div>
 
                 </div>
             </div>
             {loading ?
                 <h1 className="text-primary text-center font-extrabold mt-10">Loading your optimal flight offers...</h1> :
+                error? <h1 className="text-red-500 text-center font-extrabold mt-10">{error}</h1> :
                 <FlightList flightList={flights} carriers={carriers} />
             }
 
